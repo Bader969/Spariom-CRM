@@ -1,0 +1,504 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300..900;1,300..900&display=swap");
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, .dark, .dark *));
+
+@theme inline {
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-pill: var(--r-pill);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Sorvo Specific Theme Inlines */
+  --color-accent-hi: var(--accent-hi);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-solid: var(--accent-soft-solid);
+  --color-accent-text: var(--accent-text);
+  --color-accent-ink: var(--accent-ink);
+  --color-brand-glow: var(--brand-glow);
+  --color-glass: var(--glass);
+  --color-glass-2: var(--glass-2);
+  --color-glass-hi: var(--glass-hi);
+  --color-glass-solid: var(--glass-solid);
+  --color-tile-1: var(--tile-1);
+  --color-tile-2: var(--tile-2);
+  --color-tile-3: var(--tile-3);
+  --color-tile-4: var(--tile-4);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+
+  --font-sans: var(--font);
+  --font-display: var(--font);
+}
+
+:root {
+  /* Typography */
+  --font: "Urbanist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --fs-2xs: 11px;
+  --fs-xs: 12px;
+  --fs-sm: 12.5px;
+  --fs-md: 13.5px;
+  --fs-base: 14px;
+  --fs-lg: 15px;
+  --fs-xl: 17px;
+  --fs-2xl: 20px;
+  --fs-3xl: 22px;
+  --fs-4xl: 26px;
+  --fs-display: 34px;
+
+  /* Border Radii */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 28px;
+  --r-pill: 9999px;
+  --radius: 14px;
+
+  /* Animation & Physics */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layout Scales */
+  --max: 1480px;
+  --gap: 18px;
+  --side: 256px;
+  --rail: 84px;
+  --frost: 0.6;
+  --blur: 26px;
+
+  /* LIGHT THEME TOKENS */
+  --bg: #e9e6e2;
+  --wash: rgba(246, 242, 238, 0.58);
+  --glass: rgba(255, 255, 255, calc(0.46 + var(--frost) * 0.26));
+  --glass-2: rgba(255, 255, 255, 0.5);
+  --glass-hi: rgba(255, 255, 255, 0.78);
+  --glass-solid: rgba(250, 248, 246, 0.94);
+  --sheen: linear-gradient(140deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 42%);
+  --rim: rgba(255, 255, 255, 0.85);
+  --rim-low: rgba(30, 24, 28, 0.08);
+  --card: var(--glass);
+  --card-2: rgba(255, 255, 255, 0.5);
+  --card-3: rgba(40, 30, 35, 0.09);
+  --ink: #1d1a1e;
+  --ink-2: #3b363c;
+  --muted-ink: #5b5459;
+  --line: rgba(30, 24, 28, 0.09);
+  --line-2: rgba(30, 24, 28, 0.16);
+  --shadow: 0 1px 1px rgba(40, 20, 30, 0.04), 0 18px 40px -24px rgba(60, 30, 40, 0.35);
+  --shadow-lg: 0 2px 6px rgba(40, 20, 30, 0.08), 0 36px 80px -30px rgba(60, 30, 40, 0.5);
+
+  /* Spariom Golden-Amber Palette (Light) */
+  --accent: #d2953c;
+  --accent-hi: #dfa44e;
+  --accent-ink: #1a0f02;
+  --accent-soft: rgba(210, 149, 60, 0.15);
+  --accent-soft-solid: #faedd9;
+  --accent-text: #8f5713;
+  --brand-glow: rgba(210, 149, 60, 0.35);
+
+  /* Functional Status Colors (Light) */
+  --good: #126b45;
+  --good-soft: rgba(18, 140, 90, 0.14);
+  --warn: #855400;
+  --warn-soft: rgba(214, 150, 20, 0.2);
+  --bad: #b3261e;
+  --bad-soft: rgba(200, 50, 40, 0.12);
+  --info: #1c5a9e;
+  --info-soft: rgba(30, 110, 200, 0.12);
+
+  /* KPI Tile Backgrounds (Light) */
+  --tile-1: rgba(255, 224, 204, 0.68);
+  --tile-2: rgba(214, 245, 234, 0.64);
+  --tile-3: rgba(255, 238, 206, 0.66);
+  --tile-4: rgba(220, 236, 252, 0.66);
+
+  /* Shadcn/UI Compatibility Bindings (Light) */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-ink);
+  --secondary: var(--glass-2);
+  --secondary-foreground: var(--ink);
+  --muted: rgba(30, 24, 28, 0.05);
+  --muted-foreground: var(--muted-ink);
+  --destructive: var(--bad);
+  --destructive-foreground: #ffffff;
+  --success: var(--good);
+  --success-foreground: #ffffff;
+  --warning: var(--warn);
+  --warning-foreground: #ffffff;
+  --border: var(--line);
+  --input: var(--line-2);
+  --ring: var(--accent);
+  --popover: var(--glass-solid);
+  --popover-foreground: var(--ink);
+  --card-foreground: var(--ink);
+
+  --sidebar: var(--glass-solid);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--accent-ink);
+  --sidebar-accent: var(--accent-soft);
+  --sidebar-accent-foreground: var(--accent-text);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--accent);
+
+  /* Surface Utilities Physics */
+  --surface-blur: blur(var(--blur)) saturate(170%);
+  --sidebar-blur: blur(var(--blur)) saturate(170%);
+  --surface-bg: var(--glass);
+  --sidebar-bg: var(--glass);
+  --surface-border: var(--line);
+  --surface-shadow: inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--rim-low), var(--shadow);
+}
+
+.dark,
+[data-theme="dark"] {
+  /* DARK THEME TOKENS */
+  --bg: #0d1117;
+  --wash: rgba(8, 10, 16, 0.5);
+  --glass: rgba(20, 22, 30, calc(0.42 + var(--frost) * 0.28));
+  --glass-2: rgba(255, 255, 255, 0.06);
+  --glass-hi: rgba(255, 255, 255, 0.12);
+  --glass-solid: rgba(22, 24, 32, 0.95);
+  --sheen: linear-gradient(140deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 40%);
+  --rim: rgba(255, 255, 255, 0.2);
+  --rim-low: rgba(255, 255, 255, 0.06);
+  --card: var(--glass);
+  --card-2: rgba(255, 255, 255, 0.06);
+  --card-3: rgba(255, 255, 255, 0.1);
+  --ink: #f4f0ee;
+  --ink-2: #ddd6d4;
+  --muted-ink: #b5adac;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-2: rgba(255, 255, 255, 0.17);
+  --shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 22px 48px -26px rgba(0, 0, 0, 0.75);
+  --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.35), 0 40px 90px -30px rgba(0, 0, 0, 0.9);
+
+  /* Spariom Golden-Amber Palette (Dark) */
+  --accent: #df9f43;
+  --accent-hi: #f0b55b;
+  --accent-ink: #1a0f02;
+  --accent-soft: rgba(223, 159, 67, 0.18);
+  --accent-soft-solid: #33220f;
+  --accent-text: #f8cf8d;
+  --brand-glow: rgba(223, 159, 67, 0.45);
+
+  /* Functional Status Colors (Dark) */
+  --good: #74dca8;
+  --good-soft: rgba(116, 220, 168, 0.15);
+  --warn: #f2c26b;
+  --warn-soft: rgba(242, 194, 107, 0.16);
+  --bad: #ff978c;
+  --bad-soft: rgba(255, 151, 140, 0.15);
+  --info: #8cc7ff;
+  --info-soft: rgba(140, 199, 255, 0.15);
+
+  /* KPI Tile Backgrounds (Dark) */
+  --tile-1: rgba(223, 159, 67, 0.15);
+  --tile-2: rgba(95, 224, 184, 0.13);
+  --tile-3: rgba(242, 194, 107, 0.14);
+  --tile-4: rgba(140, 199, 255, 0.14);
+
+  /* Shadcn/UI Compatibility Bindings (Dark) */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-ink);
+  --secondary: var(--glass-2);
+  --secondary-foreground: var(--ink);
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-foreground: var(--muted-ink);
+  --destructive: var(--bad);
+  --destructive-foreground: #ffffff;
+  --success: var(--good);
+  --success-foreground: #ffffff;
+  --warning: var(--warn);
+  --warning-foreground: #1a0f02;
+  --border: var(--line);
+  --input: var(--line-2);
+  --ring: var(--accent);
+  --popover: var(--glass-solid);
+  --popover-foreground: var(--ink);
+  --card-foreground: var(--ink);
+
+  --sidebar: var(--glass-solid);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--accent-ink);
+  --sidebar-accent: var(--accent-soft);
+  --sidebar-accent-foreground: var(--accent-text);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--accent);
+
+  /* Surface Utilities Physics (Dark) */
+  --surface-blur: blur(var(--blur)) saturate(170%);
+  --sidebar-blur: blur(var(--blur)) saturate(170%);
+  --surface-bg: var(--glass);
+  --sidebar-bg: var(--glass);
+  --surface-border: var(--line);
+  --surface-shadow: inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--rim-low), var(--shadow);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    scrollbar-color: var(--color-muted-foreground) transparent;
+    scrollbar-width: thin;
+  }
+
+  html {
+    font-family: var(--font);
+    font-size: 15px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* STRUCTURAL UTILITIES */
+
+@utility theme-surface {
+  background-color: var(--surface-bg);
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
+  border-color: var(--surface-border);
+  box-shadow: var(--surface-shadow);
+}
+
+@utility theme-sidebar {
+  background-color: var(--sidebar-bg);
+  backdrop-filter: var(--sidebar-blur);
+  -webkit-backdrop-filter: var(--sidebar-blur);
+  border-color: var(--sidebar-border);
+  box-shadow: var(--surface-shadow);
+}
+
+@utility frosted-glass {
+  background-color: var(--glass);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--rim-low), var(--shadow);
+}
+
+@utility glass-card {
+  background-color: var(--glass);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--rim-low), var(--shadow);
+  position: relative;
+}
+
+@utility card-sheen {
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: var(--sheen);
+  }
+}
+
+@utility rim-border {
+  box-shadow: inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--rim-low);
+}
+
+@utility btn-primary-golden {
+  background: linear-gradient(135deg, var(--accent-hi), var(--accent));
+  color: var(--accent-ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 22px -12px var(--accent);
+  transition: all 0.2s var(--ease);
+  &:hover {
+    background: var(--accent-hi);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 14px 26px -10px var(--brand-glow);
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px -6px var(--accent);
+  }
+}
+
+@utility btn--primary {
+  background: linear-gradient(135deg, var(--accent-hi), var(--accent));
+  color: var(--accent-ink);
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 20px -8px var(--brand-glow);
+  transition: all 0.2s var(--ease);
+  &:hover {
+    background: var(--accent-hi);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 12px 24px -6px var(--brand-glow);
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@utility btn-glass {
+  background-color: var(--glass-2);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--rim);
+  transition: all 0.2s var(--ease);
+  &:hover {
+    background-color: var(--glass-hi);
+  }
+}
+
+@utility pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@utility pill-dot {
+  &::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex-shrink: 0;
+  }
+}
+
+@utility bg-tile-1 { background-color: var(--tile-1); }
+@utility bg-tile-2 { background-color: var(--tile-2); }
+@utility bg-tile-3 { background-color: var(--tile-3); }
+@utility bg-tile-4 { background-color: var(--tile-4); }
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.5 0 0 / 0.2) transparent;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: oklch(0.5 0 0 / 0.2);
+    border-radius: 9999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.5 0 0 / 0.4);
+  }
+}
+
+/* Sorvo Layout & Glass Classes */
+.side {
+  position: fixed;
+  top: 16px;
+  bottom: 16px;
+  left: 16px;
+  border-radius: 28px;
+  z-index: 30;
+}
+
+.side--expanded {
+  width: 256px;
+}
+
+.side--collapsed {
+  width: 84px;
+}
+
+.top__in {
+  min-height: 64px;
+  max-width: 1452px;
+  margin: 0 auto;
+  border-radius: 22px;
+}
+
+.signin__card {
+  border-radius: 28px;
+  background-color: var(--glass);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  border: 1px solid var(--line-2);
+  box-shadow: inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--rim-low), var(--shadow-lg);
+}
+
+/* Circular View Transition Support */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}

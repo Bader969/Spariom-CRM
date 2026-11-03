@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" fill="none">
+  <defs>
+    <!-- Authentic Spariom Golden-Amber Ochre Gradient -->
+    <linearGradient id="spariom-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dfa44e" />
+      <stop offset="45%" stop-color="#d2953c" />
+      <stop offset="100%" stop-color="#b07425" />
+    </linearGradient>
+
+    <!-- Mask 1: Left loop mask. Cuts out the top crossing where the right link passes in front -->
+    <mask id="left-link-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="660">
+      <rect width="1000" height="660" fill="#ffffff" />
+      <polygon points="415,200 475,140 595,260 535,320" fill="#000000" />
+    </mask>
+
+    <!-- Mask 2: Right loop mask. Cuts out the bottom crossing where the left link passes in front -->
+    <mask id="right-link-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="660">
+      <rect width="1000" height="660" fill="#ffffff" />
+      <polygon points="415,460 535,340 595,400 475,520" fill="#000000" />
+    </mask>
+  </defs>
+
+  <!-- Left Ring: Rotated rounded square, masked at top crossing -->
+  <g mask="url(#left-link-mask)">
+    <rect x="-115" y="-115" width="230" height="230" rx="48"
+          transform="translate(370, 330) rotate(45)"
+          stroke="url(#spariom-gold)" stroke-width="84" fill="none" stroke-linejoin="round" />
+  </g>
+
+  <!-- Right Ring: Rotated rounded square, masked at bottom crossing -->
+  <g mask="url(#right-link-mask)">
+    <rect x="-115" y="-115" width="230" height="230" rx="48"
+          transform="translate(630, 330) rotate(45)"
+          stroke="url(#spariom-gold)" stroke-width="84" fill="none" stroke-linejoin="round" />
+  </g>
+</svg>
