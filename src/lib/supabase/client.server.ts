@@ -4,9 +4,11 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from '@/integrations/supabase/types';
 
+const DEFAULT_SUPABASE_URL = 'https://tivecvbokrkooaznfjdy.supabase.co';
+
 export function createSupabaseAdminClient() {
   const procEnv = (typeof process !== 'undefined' && process.env) || {};
-  const SUPABASE_URL = procEnv.SUPABASE_URL || procEnv.VITE_SUPABASE_URL;
+  const SUPABASE_URL = procEnv.SUPABASE_URL || procEnv.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
   const SUPABASE_SERVICE_ROLE_KEY = procEnv.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {

@@ -19,22 +19,26 @@ function clientIp(): string {
 /** Returns { blocked: boolean, retryInSeconds?: number } */
 export const checkLoginRateLimit = createServerFn({ method: "POST" })
   .handler(async () => {
-    const ip = clientIp();
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    try {
+      const ip = clientIp();
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const since = new Date(Date.now() - WINDOW_MINUTES * 60 * 1000).toISOString();
-    const { count, error } = await supabaseAdmin
-      .from("auth_login_attempts")
-      .select("*", { count: "exact", head: true })
-      .eq("ip", ip)
-      .eq("success", false)
-      .gte("attempted_at", since);
+      const since = new Date(Date.now() - WINDOW_MINUTES * 60 * 1000).toISOString();
+      const { count, error } = await supabaseAdmin
+        .from("auth_login_attempts")
+        .select("*", { count: "exact", head: true })
+        .eq("ip", ip)
+        .eq("success", false)
+        .gte("attempted_at", since);
 
-    if (error) return { blocked: false };
-    if ((count ?? 0) >= MAX_FAILED) {
-      return { blocked: true, retryInSeconds: WINDOW_MINUTES * 60 };
+      if (error) return { blocked: false };
+      if ((count ?? 0) >= MAX_FAILED) {
+        return { blocked: true, retryInSeconds: WINDOW_MINUTES * 60 };
+      }
+      return { blocked: false };
+    } catch {
+      return { blocked: false };
     }
-    return { blocked: false };
   });
 
 export const recordLoginAttempt = createServerFn({ method: "POST" })
@@ -45,12 +49,16 @@ export const recordLoginAttempt = createServerFn({ method: "POST" })
     }).parse(input),
   )
   .handler(async ({ data }) => {
-    const ip = clientIp();
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    await supabaseAdmin.from("auth_login_attempts").insert({
-      ip,
-      email: data.email ?? null,
-      success: data.success,
-    });
+    try {
+      const ip = clientIp();
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      await supabaseAdmin.from("auth_login_attempts").insert({
+        ip,
+        email: data.email ?? null,
+        success: data.success,
+      });
+    } catch {
+      // Ignore if SUPABASE_SERVICE_ROLE_KEY is not configured in serverless environment
+    }
     return { ok: true };
   });
