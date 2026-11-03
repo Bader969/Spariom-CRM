@@ -306,7 +306,7 @@ export function SpariomSidebar({
   return (
     <motion.aside
       initial={false}
-      animate={{ width: collapsed ? 84 : 256 }}
+      animate={{ width: collapsed ? 88 : 275 }}
       transition={{ type: "spring", stiffness: 320, damping: 28 }}
       className={cn(
         "side frosted-glass hidden md:flex flex-col overflow-hidden",

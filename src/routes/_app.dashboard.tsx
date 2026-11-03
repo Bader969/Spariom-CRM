@@ -224,15 +224,25 @@ function Dashboard() {
     "Storniert": "#64748b",
   };
 
+  // Harmonische, unverwechselbare Spariom-Markenfarben für jede Vertragssparte
+  const CONTRACT_TYPE_COLORS: Record<string, string> = {
+    "Energie – Strom": "#e59b2c",                          // Warmes Spariom-Gold / Bernstein
+    "Energie – Gas": "#e76f51",                            // Warme Terrakotta-Flamme
+    "GKV (Gesetzliche Krankenversicherung)": "#2563eb",   // Vertrautes Königsblau
+    "PKV (Private Krankenversicherung)": "#10b981",       // Hochwertiges Smaragdgrün
+    "Telekommunikation": "#8b5cf6",                       // Modernes Tech-Violett
+    "KFZ-Versicherung": "#0ea5e9",                        // Ozean-Himmelblau
+  };
+
   const DISTRIBUTION_COLORS = [
-    "#3b82f6",
-    "#06b6d4",
-    "#8b5cf6",
-    "#ec4899",
+    "#e59b2c",
+    "#e76f51",
+    "#2563eb",
     "#10b981",
+    "#8b5cf6",
+    "#0ea5e9",
     "#f59e0b",
-    "#6366f1",
-    "#14b8a6",
+    "#64748b",
   ];
 
   const container = {
@@ -252,11 +262,11 @@ function Dashboard() {
     if (active && payload && payload.length) {
       const data = payload[0];
       return (
-        <div className="bg-popover/95 backdrop-blur-md border border-border/80 text-popover-foreground px-3 py-2 rounded-xl shadow-lg text-xs space-y-1">
-          <p className="font-semibold">{data.name || data.payload?.month || data.payload?.name}</p>
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: data.fill || data.color || "var(--color-primary)" }} />
-            <span className="font-bold text-foreground">
+        <div className="bg-popover/95 backdrop-blur-md border border-border/80 text-popover-foreground px-4 py-3 rounded-2xl shadow-xl text-xs sm:text-sm space-y-1.5">
+          <p className="font-bold text-foreground">{data.name || data.payload?.month || data.payload?.name}</p>
+          <div className="flex items-center gap-2.5">
+            <span className="h-3 w-3 rounded-full shrink-0" style={{ backgroundColor: data.fill || data.color || "var(--color-primary)" }} />
+            <span className="font-extrabold text-foreground text-sm sm:text-base">
               {data.value ?? data.payload?.count} {data.dataKey === "contracts" ? "Verträge" : "Stück"}
             </span>
           </div>
@@ -314,23 +324,36 @@ function Dashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-[260px] w-full mt-2">
+              <div className="h-[320px] w-full mt-2">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <RechartsTooltip content={<CustomTooltip />} />
-                    <Legend iconType="circle" wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                    <Legend 
+                      iconType="circle" 
+                      iconSize={10}
+                      wrapperStyle={{ fontSize: '13px', paddingTop: '16px', fontWeight: 600 }} 
+                    />
                     <Pie 
                       data={data?.distributionData || []} 
                       cx="50%" 
                       cy="42%" 
-                      innerRadius={55} 
-                      outerRadius={75} 
+                      innerRadius={68} 
+                      outerRadius={98} 
                       paddingAngle={4} 
+                      cornerRadius={4}
                       dataKey="value"
                     >
-                      {(data?.distributionData || []).map((entry: any, index: number) => (
-                        <Cell key={`cell-dist-${index}`} fill={DISTRIBUTION_COLORS[index % DISTRIBUTION_COLORS.length]} stroke="var(--color-background)" strokeWidth={2} />
-                      ))}
+                      {(data?.distributionData || []).map((entry: any, index: number) => {
+                        const fill = CONTRACT_TYPE_COLORS[entry.name] || DISTRIBUTION_COLORS[index % DISTRIBUTION_COLORS.length];
+                        return (
+                          <Cell 
+                            key={`cell-dist-${index}`} 
+                            fill={fill} 
+                            stroke="var(--color-background)" 
+                            strokeWidth={3} 
+                          />
+                        );
+                      })}
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
@@ -347,13 +370,13 @@ function Dashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-[260px] w-full mt-2">
+              <div className="h-[320px] w-full mt-2">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={data?.funnelData || []} layout="vertical" margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
                     <XAxis type="number" hide />
-                    <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--color-muted-foreground)' }} width={110} />
+                    <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fontSize: 13, fill: 'var(--color-muted-foreground)', fontWeight: 500 }} width={125} />
                     <RechartsTooltip cursor={false} content={<CustomTooltip />} />
-                    <Bar dataKey="count" radius={[0, 6, 6, 0]} barSize={20}>
+                    <Bar dataKey="count" radius={[0, 6, 6, 0]} barSize={24}>
                       {(data?.funnelData || []).map((entry: any, index: number) => {
                         const baseColor = PIPELINE_COLORS[entry.name] || DISTRIBUTION_COLORS[index % DISTRIBUTION_COLORS.length];
                         const isHovered = typeof hoveredBarIndex === "number" && hoveredBarIndex === index;
@@ -390,7 +413,7 @@ function Dashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-[260px] w-full mt-2">
+              <div className="h-[320px] w-full mt-2">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={data?.growthData || []} margin={{ top: 15, right: 15, left: -20, bottom: 0 }}>
                     <defs>
@@ -399,8 +422,8 @@ function Dashboard() {
                         <stop offset="95%" stopColor="#d2953c" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
-                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--color-muted-foreground)' }} />
-                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--color-muted-foreground)' }} />
+                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 12.5, fill: 'var(--color-muted-foreground)', fontWeight: 500 }} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12.5, fill: 'var(--color-muted-foreground)' }} />
                     <RechartsTooltip content={<CustomTooltip />} />
                     <Area type="monotone" dataKey="contracts" stroke="#d2953c" strokeWidth={3} fillOpacity={1} fill="url(#colorGrowthModern)" />
                   </AreaChart>
