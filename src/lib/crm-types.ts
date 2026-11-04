@@ -329,21 +329,94 @@ export async function expireOverdueContracts(supabase: any): Promise<boolean> {
   }
 }
 
-/* ============================ Task urgency ============================ */
+/* ============================ Task priority, automation & urgency ============================ */
 
-export function getTaskUrgency(due_date: string | null, status: TaskStatus): {
+export type TaskPriority = "hoch" | "mittel" | "niedrig";
+export type TaskTriggerEvent = "contract_created" | "contract_activated" | "contract_cancelled";
+export type TaskAssigneeMode = "contract_creator" | "customer_advisor" | "specific_user";
+
+export const TASK_PRIORITIES: { value: TaskPriority; label: string; badgeClass: string; dotClass: string }[] = [
+  { value: "hoch", label: "Hoch", badgeClass: "bg-warning/20 text-warning-foreground border-warning/40", dotClass: "bg-warning" },
+  { value: "mittel", label: "Mittel", badgeClass: "bg-info/15 text-foreground border-info/30", dotClass: "bg-info" },
+  { value: "niedrig", label: "Niedrig", badgeClass: "bg-muted text-muted-foreground border-border", dotClass: "bg-muted-foreground" },
+];
+
+export const taskPriorityMeta = (p?: TaskPriority | string | null) =>
+  TASK_PRIORITIES.find((x) => x.value === p) ?? TASK_PRIORITIES[1];
+
+export const TASK_TRIGGER_EVENTS: { value: TaskTriggerEvent; label: string; description: string }[] = [
+  { value: "contract_created", label: "Bei Vertragseintrag", description: "Sofort beim Anlegen eines neuen Vertrags im System" },
+  { value: "contract_activated", label: "Bei Aktivierung", description: "Sobald der Vertragsstatus auf Aktiv gesetzt wird" },
+  { value: "contract_cancelled", label: "Bei Kündigung", description: "Sobald der Vertrag auf Gekündigt gesetzt wird" },
+];
+
+export const TASK_ASSIGNEE_MODES: { value: TaskAssigneeMode; label: string }[] = [
+  { value: "contract_creator", label: "Vertrags-Ersteller" },
+  { value: "customer_advisor", label: "Zuständiger Kundenbetreuer" },
+  { value: "specific_user", label: "Fester Mitarbeiter" },
+];
+
+export function getTaskUrgency(
+  due_date: string | null,
+  status: TaskStatus,
+  priority?: TaskPriority | string | null,
+): {
   key: "erledigt" | "ueberfaellig" | "hoch" | "mittel" | "niedrig";
+  label: string;
+  rank: number;
   bgClass: string;
   borderClass: string;
+  badgeClass: string;
 } {
   if (status === "erledigt") {
-    return { key: "erledigt", bgClass: "bg-success/5 opacity-70", borderClass: "border-l-success" };
+    return {
+      key: "erledigt",
+      label: "Erledigt",
+      rank: 0,
+      bgClass: "bg-success/5 opacity-70",
+      borderClass: "border-l-success",
+      badgeClass: "bg-success/20 text-success-foreground",
+    };
   }
   const days = due_date ? daysUntil(due_date) : null;
-  if (days === null) return { key: "niedrig", bgClass: "bg-card", borderClass: "border-l-muted" };
-  if (days < 0) return { key: "ueberfaellig", bgClass: "bg-destructive/10", borderClass: "border-l-destructive" };
-  if (days <= 3) return { key: "hoch", bgClass: "bg-warning/10", borderClass: "border-l-warning" };
-  return { key: "niedrig", bgClass: "bg-card", borderClass: "border-l-muted" };
+  if (days !== null && days < 0) {
+    return {
+      key: "ueberfaellig",
+      label: `Überfällig (${Math.abs(days)} T)`,
+      rank: 4,
+      bgClass: "bg-destructive/10",
+      borderClass: "border-l-destructive",
+      badgeClass: "bg-destructive text-destructive-foreground",
+    };
+  }
+  if ((days !== null && days <= 2) || (priority === "hoch" && (days === null || days <= 5))) {
+    return {
+      key: "hoch",
+      label: days === 0 ? "Heute fällig" : days === 1 ? "Morgen fällig" : days !== null ? `Hoch (${days} T)` : "Dringend (Prio Hoch)",
+      rank: 3,
+      bgClass: "bg-warning/10",
+      borderClass: "border-l-warning",
+      badgeClass: "bg-warning text-warning-foreground",
+    };
+  }
+  if ((days !== null && days <= 7) || priority === "mittel") {
+    return {
+      key: "mittel",
+      label: days !== null ? `Mittel (${days} T)` : "Mittel",
+      rank: 2,
+      bgClass: "bg-info/5",
+      borderClass: "border-l-info",
+      badgeClass: "bg-info/25 text-foreground",
+    };
+  }
+  return {
+    key: "niedrig",
+    label: days !== null ? `Niedrig (${days} T)` : "Ohne Datum",
+    rank: 1,
+    bgClass: "bg-card",
+    borderClass: "border-l-muted",
+    badgeClass: "bg-muted text-muted-foreground",
+  };
 }
 
 /* ============================ Expiry bucket (Ampel) ============================ */

@@ -1027,9 +1027,61 @@ export type Database = {
         }
         Relationships: []
       }
+      task_automation_rules: {
+        Row: {
+          active: boolean
+          assignee_mode: Database["public"]["Enums"]["task_assignee_mode"]
+          contract_type: Database["public"]["Enums"]["contract_type"]
+          created_at: string
+          created_by: string | null
+          description_template: string | null
+          due_days_offset: number
+          id: string
+          priority: Database["public"]["Enums"]["task_priority"]
+          sort_order: number
+          specific_user_id: string | null
+          title_template: string
+          trigger_event: Database["public"]["Enums"]["task_trigger_event"]
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          assignee_mode?: Database["public"]["Enums"]["task_assignee_mode"]
+          contract_type: Database["public"]["Enums"]["contract_type"]
+          created_at?: string
+          created_by?: string | null
+          description_template?: string | null
+          due_days_offset?: number
+          id?: string
+          priority?: Database["public"]["Enums"]["task_priority"]
+          sort_order?: number
+          specific_user_id?: string | null
+          title_template: string
+          trigger_event?: Database["public"]["Enums"]["task_trigger_event"]
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          assignee_mode?: Database["public"]["Enums"]["task_assignee_mode"]
+          contract_type?: Database["public"]["Enums"]["contract_type"]
+          created_at?: string
+          created_by?: string | null
+          description_template?: string | null
+          due_days_offset?: number
+          id?: string
+          priority?: Database["public"]["Enums"]["task_priority"]
+          sort_order?: number
+          specific_user_id?: string | null
+          title_template?: string
+          trigger_event?: Database["public"]["Enums"]["task_trigger_event"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       tasks: {
         Row: {
           assigned_to: string | null
+          automation_rule_id: string | null
           contract_id: string | null
           created_at: string
           created_by: string | null
@@ -1037,12 +1089,15 @@ export type Database = {
           description: string | null
           due_date: string | null
           id: string
+          is_automated: boolean
+          priority: Database["public"]["Enums"]["task_priority"]
           status: Database["public"]["Enums"]["task_status"]
           title: string
           updated_at: string
         }
         Insert: {
           assigned_to?: string | null
+          automation_rule_id?: string | null
           contract_id?: string | null
           created_at?: string
           created_by?: string | null
@@ -1050,12 +1105,15 @@ export type Database = {
           description?: string | null
           due_date?: string | null
           id?: string
+          is_automated?: boolean
+          priority?: Database["public"]["Enums"]["task_priority"]
           status?: Database["public"]["Enums"]["task_status"]
           title: string
           updated_at?: string
         }
         Update: {
           assigned_to?: string | null
+          automation_rule_id?: string | null
           contract_id?: string | null
           created_at?: string
           created_by?: string | null
@@ -1063,6 +1121,8 @@ export type Database = {
           description?: string | null
           due_date?: string | null
           id?: string
+          is_automated?: boolean
+          priority?: Database["public"]["Enums"]["task_priority"]
           status?: Database["public"]["Enums"]["task_status"]
           title?: string
           updated_at?: string
@@ -1395,7 +1455,16 @@ export type Database = {
         | "freund"
         | "empfehlung_quelle"
         | "sonstiges"
+      task_assignee_mode:
+        | "contract_creator"
+        | "customer_advisor"
+        | "specific_user"
+      task_priority: "hoch" | "mittel" | "niedrig"
       task_status: "offen" | "erledigt"
+      task_trigger_event:
+        | "contract_created"
+        | "contract_activated"
+        | "contract_cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1587,7 +1656,18 @@ export const Constants = {
         "empfehlung_quelle",
         "sonstiges",
       ],
+      task_assignee_mode: [
+        "contract_creator",
+        "customer_advisor",
+        "specific_user",
+      ],
+      task_priority: ["hoch", "mittel", "niedrig"],
       task_status: ["offen", "erledigt"],
+      task_trigger_event: [
+        "contract_created",
+        "contract_activated",
+        "contract_cancelled",
+      ],
     },
   },
 } as const
