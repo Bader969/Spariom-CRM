@@ -124,10 +124,10 @@ function AppLayout() {
         className={cn(
           "flex flex-col min-h-screen transition-all duration-300 ease-out",
           // Mobile padding: 12px (px-3)
-          "px-3 md:pr-7",
-          // Desktop expanded: 284px left (256 + 28)
-          // Desktop rail collapsed: 112px left (84 + 28)
-          collapsed ? "md:pl-[112px]" : "md:pl-[284px]",
+          "px-3 md:px-0 md:pr-6",
+          // Desktop expanded: 296px left (16px left + 260px sidebar + 20px gap)
+          // Desktop rail collapsed: 120px left (16px left + 84px rail + 20px gap)
+          collapsed ? "md:pl-[120px]" : "md:pl-[296px]",
         )}
       >
         {/* Session Timeout Warning Modal */}
@@ -149,8 +149,8 @@ function AppLayout() {
           onSignOut={signOut}
         />
 
-        {/* Dynamic Route View */}
-        <main className="flex-1 w-full max-w-[1452px] mx-auto pb-12 pt-2 min-w-0">
+        {/* Dynamic Route View - Fluid width without artificial center void */}
+        <main className="flex-1 w-full pb-12 pt-2 min-w-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={pathname}

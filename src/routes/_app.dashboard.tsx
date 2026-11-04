@@ -277,18 +277,18 @@ function Dashboard() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 w-full max-w-[1920px]">
+    <div className="p-1 sm:p-2 lg:p-4 space-y-6 w-full">
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
         <h1 className="text-3xl font-extrabold tracking-tight">Dashboard</h1>
         <p className="text-base text-muted-foreground font-medium">Überblick über Kunden, Verträge, Statistiken und anstehende Aufgaben</p>
       </motion.div>
 
-      {/* 1. Top KPI Metrics Cards */}
+      {/* 1. Top KPI Metrics Cards in ergonomischem 2x5 Grid */}
       <motion.div 
         variants={container} 
         initial="hidden" 
         animate="show" 
-        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-10 gap-3.5"
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4"
       >
         <motion.div variants={item}><Stat to="/interessenten" icon={Sparkles} label="Interessenten" value={data?.leadCount ?? 0} loading={isLoading} accent /></motion.div>
         <motion.div variants={item}><Stat to="/kunden" icon={Users} label="Kunden" value={data?.customerCount ?? 0} loading={isLoading} /></motion.div>
@@ -766,19 +766,19 @@ function Dashboard() {
 function Stat({ icon: Icon, label, value, loading, accent, highlight, to, search }: any) {
   const card = (
     <motion.div
-      whileHover={{ scale: 1.04, y: -4 }}
+      whileHover={{ scale: 1.025, y: -3 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
       <Card className={`transition-all duration-300 border ${highlight ? "border-destructive/60 bg-destructive/5 shadow-destructive/10" : accent ? "border-primary/40 bg-primary/5 shadow-primary/10" : "border-border/60"} ${to ? "cursor-pointer hover:border-primary/60 hover:shadow-xl hover:shadow-primary/15" : ""}`}>
         <CardContent className="p-4 sm:p-5">
-          <div className="flex items-center justify-between gap-2">
-            <div className="space-y-1 min-w-0 flex-1">
-              <div className="text-xs sm:text-sm font-semibold text-muted-foreground truncate">{label}</div>
-              <div className={`text-3xl font-extrabold tracking-tight ${highlight ? "text-destructive" : "text-foreground"}`}>{loading ? "…" : value}</div>
+          <div className="flex items-center justify-between gap-3">
+            <div className="space-y-1.5 min-w-0 flex-1">
+              <div className="text-sm font-semibold text-muted-foreground whitespace-normal leading-snug">{label}</div>
+              <div className={`text-2xl sm:text-3xl font-black tracking-tight ${highlight ? "text-destructive" : "text-foreground"}`}>{loading ? "…" : value}</div>
             </div>
-            <div className={`p-2.5 rounded-xl shrink-0 ${highlight ? "bg-destructive/15 text-destructive" : accent ? "bg-primary/15 text-primary" : "bg-muted/80 text-muted-foreground"}`}>
-              <Icon className="h-6 w-6" />
+            <div className={`p-2.5 sm:p-3 rounded-2xl shrink-0 ${highlight ? "bg-destructive/15 text-destructive" : accent ? "bg-primary/15 text-primary" : "bg-muted/80 text-muted-foreground"}`}>
+              <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
           </div>
         </CardContent>

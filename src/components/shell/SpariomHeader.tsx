@@ -87,12 +87,9 @@ export function SpariomHeader({
   const displayCrumbs = truncateBreadcrumb(rawSegments);
 
   return (
-    <header className="sticky top-0 z-25 w-full pt-4 pb-3 px-3 sm:px-4 md:px-0 pointer-events-none">
+    <header className="sticky top-0 z-25 w-full pt-4 pb-3 px-1 sm:px-2 md:px-0 pointer-events-none">
       <div
         className="top__in frosted-glass h-16 w-full flex items-center justify-between px-3 sm:px-5 gap-2 sm:gap-4 pointer-events-auto transition-all"
-        style={{
-          maxWidth: "calc(1480px - 28px)",
-        }}
       >
         {/* Left Side: Collapse/Menu Trigger + Breadcrumbs */}
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">

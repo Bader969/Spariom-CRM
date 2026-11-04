@@ -9,72 +9,42 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as OauthConsentRouteImport } from './routes/oauth.consent'
-import { Route as AppVertragsablaufRouteImport } from './routes/_app.vertragsablauf'
-import { Route as AppVertraegeRouteImport } from './routes/_app.vertraege'
-import { Route as AppTeamRouteImport } from './routes/_app.team'
-import { Route as AppProfilRouteImport } from './routes/_app.profil'
-import { Route as AppKlaerfaelleRouteImport } from './routes/_app.klaerfaelle'
-import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
-import { Route as AppBenutzerRouteImport } from './routes/_app.benutzer'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppAufgabenRouteImport } from './routes/_app.aufgaben'
-import { Route as AppKundenIndexRouteImport } from './routes/_app.kunden.index'
+import { Route as AppBenutzerRouteImport } from './routes/_app.benutzer'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppKlaerfaelleRouteImport } from './routes/_app.klaerfaelle'
+import { Route as AppProfilRouteImport } from './routes/_app.profil'
+import { Route as AppTeamRouteImport } from './routes/_app.team'
+import { Route as AppVertraegeRouteImport } from './routes/_app.vertraege'
+import { Route as AppVertragsablaufRouteImport } from './routes/_app.vertragsablauf'
+import { Route as OauthConsentRouteImport } from './routes/oauth.consent'
 import { Route as AppInteressentenIndexRouteImport } from './routes/_app.interessenten.index'
-import { Route as AppKundenNeuRouteImport } from './routes/_app.kunden.neu'
-import { Route as AppKundenIdRouteImport } from './routes/_app.kunden.$id'
 import { Route as AppInteressentenNeuRouteImport } from './routes/_app.interessenten.neu'
+import { Route as AppKundenIndexRouteImport } from './routes/_app.kunden.index'
+import { Route as AppKundenIdRouteImport } from './routes/_app.kunden.$id'
+import { Route as AppKundenNeuRouteImport } from './routes/_app.kunden.neu'
 import { Route as AppKundenIdBearbeitenRouteImport } from './routes/_app.kunden.$id.bearbeiten'
 
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OauthConsentRoute = OauthConsentRouteImport.update({
-  id: '/oauth/consent',
-  path: '/oauth/consent',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppVertragsablaufRoute = AppVertragsablaufRouteImport.update({
-  id: '/vertragsablauf',
-  path: '/vertragsablauf',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppVertraegeRoute = AppVertraegeRouteImport.update({
-  id: '/vertraege',
-  path: '/vertraege',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppTeamRoute = AppTeamRouteImport.update({
-  id: '/team',
-  path: '/team',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppProfilRoute = AppProfilRouteImport.update({
-  id: '/profil',
-  path: '/profil',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppKlaerfaelleRoute = AppKlaerfaelleRouteImport.update({
-  id: '/klaerfaelle',
-  path: '/klaerfaelle',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppDashboardRoute = AppDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AppAufgabenRoute = AppAufgabenRouteImport.update({
+  id: '/aufgaben',
+  path: '/aufgaben',
   getParentRoute: () => AppRoute,
 } as any)
 const AppBenutzerRoute = AppBenutzerRouteImport.update({
@@ -82,9 +52,49 @@ const AppBenutzerRoute = AppBenutzerRouteImport.update({
   path: '/benutzer',
   getParentRoute: () => AppRoute,
 } as any)
-const AppAufgabenRoute = AppAufgabenRouteImport.update({
-  id: '/aufgaben',
-  path: '/aufgaben',
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppKlaerfaelleRoute = AppKlaerfaelleRouteImport.update({
+  id: '/klaerfaelle',
+  path: '/klaerfaelle',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfilRoute = AppProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTeamRoute = AppTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVertraegeRoute = AppVertraegeRouteImport.update({
+  id: '/vertraege',
+  path: '/vertraege',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVertragsablaufRoute = AppVertragsablaufRouteImport.update({
+  id: '/vertragsablauf',
+  path: '/vertragsablauf',
+  getParentRoute: () => AppRoute,
+} as any)
+const OauthConsentRoute = OauthConsentRouteImport.update({
+  id: '/oauth/consent',
+  path: '/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppInteressentenIndexRoute = AppInteressentenIndexRouteImport.update({
+  id: '/interessenten/',
+  path: '/interessenten/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInteressentenNeuRoute = AppInteressentenNeuRouteImport.update({
+  id: '/interessenten/neu',
+  path: '/interessenten/neu',
   getParentRoute: () => AppRoute,
 } as any)
 const AppKundenIndexRoute = AppKundenIndexRouteImport.update({
@@ -92,24 +102,14 @@ const AppKundenIndexRoute = AppKundenIndexRouteImport.update({
   path: '/kunden/',
   getParentRoute: () => AppRoute,
 } as any)
-const AppInteressentenIndexRoute = AppInteressentenIndexRouteImport.update({
-  id: '/interessenten/',
-  path: '/interessenten/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppKundenNeuRoute = AppKundenNeuRouteImport.update({
-  id: '/kunden/neu',
-  path: '/kunden/neu',
-  getParentRoute: () => AppRoute,
-} as any)
 const AppKundenIdRoute = AppKundenIdRouteImport.update({
   id: '/kunden/$id',
   path: '/kunden/$id',
   getParentRoute: () => AppRoute,
 } as any)
-const AppInteressentenNeuRoute = AppInteressentenNeuRouteImport.update({
-  id: '/interessenten/neu',
-  path: '/interessenten/neu',
+const AppKundenNeuRoute = AppKundenNeuRouteImport.update({
+  id: '/kunden/neu',
+  path: '/kunden/neu',
   getParentRoute: () => AppRoute,
 } as any)
 const AppKundenIdBearbeitenRoute = AppKundenIdBearbeitenRouteImport.update({
@@ -247,11 +247,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -261,60 +261,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/oauth/consent': {
-      id: '/oauth/consent'
-      path: '/oauth/consent'
-      fullPath: '/oauth/consent'
-      preLoaderRoute: typeof OauthConsentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_app/vertragsablauf': {
-      id: '/_app/vertragsablauf'
-      path: '/vertragsablauf'
-      fullPath: '/vertragsablauf'
-      preLoaderRoute: typeof AppVertragsablaufRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/vertraege': {
-      id: '/_app/vertraege'
-      path: '/vertraege'
-      fullPath: '/vertraege'
-      preLoaderRoute: typeof AppVertraegeRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/team': {
-      id: '/_app/team'
-      path: '/team'
-      fullPath: '/team'
-      preLoaderRoute: typeof AppTeamRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/profil': {
-      id: '/_app/profil'
-      path: '/profil'
-      fullPath: '/profil'
-      preLoaderRoute: typeof AppProfilRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/klaerfaelle': {
-      id: '/_app/klaerfaelle'
-      path: '/klaerfaelle'
-      fullPath: '/klaerfaelle'
-      preLoaderRoute: typeof AppKlaerfaelleRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/dashboard': {
-      id: '/_app/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AppDashboardRouteImport
+    '/_app/aufgaben': {
+      id: '/_app/aufgaben'
+      path: '/aufgaben'
+      fullPath: '/aufgaben'
+      preLoaderRoute: typeof AppAufgabenRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/benutzer': {
@@ -324,11 +282,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBenutzerRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/aufgaben': {
-      id: '/_app/aufgaben'
-      path: '/aufgaben'
-      fullPath: '/aufgaben'
-      preLoaderRoute: typeof AppAufgabenRouteImport
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/klaerfaelle': {
+      id: '/_app/klaerfaelle'
+      path: '/klaerfaelle'
+      fullPath: '/klaerfaelle'
+      preLoaderRoute: typeof AppKlaerfaelleRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profil': {
+      id: '/_app/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof AppProfilRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/team': {
+      id: '/_app/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof AppTeamRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/vertraege': {
+      id: '/_app/vertraege'
+      path: '/vertraege'
+      fullPath: '/vertraege'
+      preLoaderRoute: typeof AppVertraegeRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/vertragsablauf': {
+      id: '/_app/vertragsablauf'
+      path: '/vertragsablauf'
+      fullPath: '/vertragsablauf'
+      preLoaderRoute: typeof AppVertragsablaufRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/oauth/consent': {
+      id: '/oauth/consent'
+      path: '/oauth/consent'
+      fullPath: '/oauth/consent'
+      preLoaderRoute: typeof OauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/interessenten/': {
+      id: '/_app/interessenten/'
+      path: '/interessenten'
+      fullPath: '/interessenten/'
+      preLoaderRoute: typeof AppInteressentenIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/interessenten/neu': {
+      id: '/_app/interessenten/neu'
+      path: '/interessenten/neu'
+      fullPath: '/interessenten/neu'
+      preLoaderRoute: typeof AppInteressentenNeuRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/kunden/': {
@@ -338,20 +352,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppKundenIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/interessenten/': {
-      id: '/_app/interessenten/'
-      path: '/interessenten'
-      fullPath: '/interessenten/'
-      preLoaderRoute: typeof AppInteressentenIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/kunden/neu': {
-      id: '/_app/kunden/neu'
-      path: '/kunden/neu'
-      fullPath: '/kunden/neu'
-      preLoaderRoute: typeof AppKundenNeuRouteImport
-      parentRoute: typeof AppRoute
-    }
     '/_app/kunden/$id': {
       id: '/_app/kunden/$id'
       path: '/kunden/$id'
@@ -359,11 +359,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppKundenIdRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/interessenten/neu': {
-      id: '/_app/interessenten/neu'
-      path: '/interessenten/neu'
-      fullPath: '/interessenten/neu'
-      preLoaderRoute: typeof AppInteressentenNeuRouteImport
+    '/_app/kunden/neu': {
+      id: '/_app/kunden/neu'
+      path: '/kunden/neu'
+      fullPath: '/kunden/neu'
+      preLoaderRoute: typeof AppKundenNeuRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/kunden/$id/bearbeiten': {

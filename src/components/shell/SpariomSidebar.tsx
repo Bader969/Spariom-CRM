@@ -194,7 +194,7 @@ export function SpariomSidebar({
       <div
         className={cn(
           "flex items-center border-b border-sidebar-border shrink-0 transition-all duration-200",
-          collapsed && !isMobile ? "px-2 py-4 justify-center" : "px-4 py-4 justify-between",
+          collapsed && !isMobile ? "flex-col gap-2.5 py-4 px-2 justify-center items-center" : "px-4 py-4 justify-between",
         )}
       >
         <Link
@@ -203,20 +203,21 @@ export function SpariomSidebar({
           className="flex items-center min-w-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-xl"
         >
           <SpariomLogo
-            variant="full"
-            size="md"
+            variant={collapsed && !isMobile ? "emblem" : "full"}
+            size={collapsed && !isMobile ? 32 : "md"}
             isRail={collapsed && !isMobile}
-            showSubtitle={true}
+            showSubtitle={!collapsed}
           />
         </Link>
 
-        {/* Rail Collapse Toggle button */}
+        {/* Rail Collapse / Expand Toggle button (always accessible) */}
         {!isMobile && (
           <button
+            type="button"
             onClick={onToggleCollapse}
             className={cn(
-              "h-8 w-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-glass-2 transition-all",
-              collapsed ? "hidden" : "inline-flex",
+              "h-8 w-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-glass-2 transition-all cursor-pointer",
+              collapsed ? "mt-1 text-primary hover:text-primary hover:bg-accent-soft" : "",
             )}
             title={collapsed ? "Seitenleiste ausklappen ( [ )" : "Seitenleiste einklappen ( [ )"}
             aria-label={collapsed ? "Seitenleiste ausklappen" : "Seitenleiste einklappen"}
@@ -306,7 +307,7 @@ export function SpariomSidebar({
   return (
     <motion.aside
       initial={false}
-      animate={{ width: collapsed ? 88 : 275 }}
+      animate={{ width: collapsed ? 84 : 260 }}
       transition={{ type: "spring", stiffness: 320, damping: 28 }}
       className={cn(
         "side frosted-glass hidden md:flex flex-col overflow-hidden",
